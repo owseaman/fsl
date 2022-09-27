@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp
+spec:
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: owseaman/fsl
+        env:
+          - name: MY_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: mysecret
+                key: password
+        ports:
+        - containerPort: 3000
